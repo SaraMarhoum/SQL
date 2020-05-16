@@ -1,0 +1,71 @@
+En se basant sur le fichier sql shema et shema figure:
+-- vous devez créer une base données, et imiter les requêtes dans le fichier sql shema.
+Exprimer les requêtes suivantes en SQL :
+
+-- 2.1 Sélectionnez le nom de famille de tous les employés.
+   SELECT LastName FROM Employees;
+
+-- 2.2 Sélectionnez le nom de famille de tous les employés, sans doublons.
+   SELECT distinct LastName FROM employees;
+
+-- 2.3 Sélectionnez toutes les données des employés dont le nom de famille est "Smith".
+   SELECT * FROM employees WHERE lastname = 'Smith';
+
+-- 2.4 Sélectionnez toutes les données des employés dont le nom de famille est "Smith" ou "Doe".
+   SELECT * FROM Employees WHERE lastname = 'Smith' OR lastname = 'Doe';
+   SELECT * FROM Employees WHERE lastname IN ('Smith', 'Doe');
+
+-- 2.5 Sélectionnez toutes les données des employés qui travaillent dans le département 14.
+   SELECT * FROM Employees WHERE department = 14;
+
+-- 2.6 Sélectionner toutes les données des employés qui travaillent dans le département 37 ou le département 77.
+   SELECT * FROM employees WHERE department = 37 OR department = 77;
+   SELECT * FROM employees WHERE department IN (37, 77);
+
+-- 2.7 Sélectionner toutes les données des employés dont le nom de famille commence par un "S".
+   SELECT * FROM employees WHERE LastName LIKE 'S%';
+
+-- 2.8 Sélectionner la somme des budgets de tous les départements.
+   SELECT sum(budget) FROM Departments;
+   SELECT Name, sum(Budget) FROM Departments GROUP bY Name;
+
+-- 2.9 Sélectionnez le nombre d'employés dans chaque département (vous devez seulement indiquer le code du département et le nombre d'employés).
+   SELECT Department, COUNT(*) FROM employees GROUP bY department;
+   SELECT Department, COUNT(*) FROM Employees GROUP bY Department;
+   
+-- 2.10 Sélectionnez toutes les données des employés, y compris les données du département de chaque employé.
+   SELECT a.*, b.* FROM employees a JOIN departments b ON a.department = b.code;
+
+-- 2.11 Sélectionnez le nom et le prénom de chaque employé, ainsi que le nom et le budget du département de l'employé.
+   SELECT a.name, a.lastname, b.name Department_name, b.Budget FROM employees a JOIN departments b ON a.department = b.code;
+
+-- 2.12 Sélectionnez le nom et le nom de famille des employés travaillant pour des ministères dont le budget est supérieur à 60 000 $.
+   SELECT Name, LastName FROM Employees WHERE Department IN (SELECT Code FROM Departments WHERE Budget > 60000);
+
+-- 2.13 Sélectionnez les départements dont le budget est supérieur au budget moyen de l'ensemble des départements.
+   SELECT * FROM Departments WHERE Budget > (SELECT AVG(Budget) FROM Departments);
+
+-- 2.14 Sélectionnez les noms des départements ayant plus de deux employés.
+   SELECT Name FROM Departments WHERE Code IN (SELECT Department FROM Employees GROUP BY Department HAVING COUNT(*) > 2);
+   SELECT Departments.Name FROM Employees INNER JOIN Departments ON Department = Code GROUP BY Departments.Name HAVING COUNT(*) > 2;
+
+-- 2.15 Très important - Sélectionnez le nom et le nom de famille des employés travaillant pour les ministères dont le budget est le deuxième plus bas.
+   SELECT name, lastname FROM employees WHERE department =(SELECT temp.code FROM (SELECT * FROM departments ORDER BY budget limit 2) temp ORDER BY temp.budget DESC limit 1);
+
+-- 2.16 Ajoutez un nouveau service appelé "Quality assurance", avec un budget de 40 000 $ et le code de service 11. Et ajoutez un employé appelé "Mary Moore" dans ce département, avec le code SSN 847-21-9811.
+   INSERT INTO departments VALUES(11, 'Quality Assurance', 40000); INSERT INTO employees VALUES(847219811, 'Mary', 'Moore', 11);
+
+-- 2.17 Réduire le budget de tous les départements de 10 %.
+   UPDATE departments SET budget = 0.9 * budget;
+
+-- 2.18 Réaffecter tous les employés du département de la recherche (code 77) au département informatique (code 14).
+   UPDATE employees SET department = 14 WHERE department = 77;
+
+-- 2.19 Supprimer du tableau tous les employés du département informatique (code 14).
+   DELETE FROM employees WHERE department = 14;
+
+-- 2.20 Supprimer du tableau tous les employés qui travaillent dans des départements dont le budget est supérieur ou égal à 60 000 $.
+   DELETE FROM employees WHERE department IN (SELECT code FROM departments WHERE budget>=60000);
+
+-- 2.21 Supprimer du tableau tous les employés.
+   DELETE FROM employees;
