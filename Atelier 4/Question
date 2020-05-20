@@ -3,6 +3,7 @@ En se basant sur le fichier sql shema et shema figure:
 Exprimer les requêtes suivantes en SQL :
 -- 4.1 Sélectionnez le titre de tous les films.
 -- 4.2 Afficher toutes les classifications distinctes dans la base de données.
+
 -- 4.3 Afficher tous les films non classés.
 -- 4.4 Sélectionner tous les cinémas qui ne diffusent pas de film actuellement.
 -- 4.5 Sélectionner toutes les données de tous les cinémas 
@@ -12,3 +13,7 @@ Exprimer les requêtes suivantes en SQL :
 -- 4.8 Ajouter le film non coté "One, Two, three".
 -- 4.9 Fixer la classification de tous les films non classés à "G".
 -- 4.10 Supprimer les salles de cinéma qui projettent des films classés "NC-17".
+
+
+
+uml , diagrame classe autentification ... veille 
